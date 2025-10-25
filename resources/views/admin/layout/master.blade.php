@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Admin Dashboard')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #343a40;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            display: block;
+            color: #adb5bd;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+            color: #fff;
+        }
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        footer {
+            background: #fff;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 240px;
+            right: 0;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    {{-- ===== HEADER ===== --}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">Ecommerce Admin</span>
+            <div class="d-flex ms-auto">
+                <span class="me-3">Hello, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</span>
+                <a href="{{ route('admin.logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    {{-- ===== SIDEBAR ===== --}}
+    <div class="sidebar">
+        <a href="{{ route('admin.dashboard') }}">🏠 Dashboard</a>
+        {{-- <a href="{{ route('admin.categories.index') }}">📦 Categories</a>
+        <a href="{{ route('admin.products.index') }}">🛍️ Products</a>
+        <a href="{{ route('admin.users.index') }}">👥 Users</a>
+        <a href="{{ route('admin.orders.index') }}">📑 Orders</a> --}}
+    </div>
+
+    {{-- ===== MAIN CONTENT ===== --}}
+    <main class="main-content">
+        <div class="container-fluid mt-5 pt-3">
+            @yield('content')
+        </div>
+
+        {{-- ===== FOOTER ===== --}}
+        <footer class="shadow-sm">
+            <p class="mb-0">© {{ date('Y') }} Ecommerce Admin Panel. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
