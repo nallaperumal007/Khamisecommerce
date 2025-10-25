@@ -75,7 +75,7 @@
         <div class="container-fluid mt-5 pt-3">
             @yield('content')
         </div>
-
+<br/><br/><br/><br/><br/><br/>
         {{-- ===== FOOTER ===== --}}
         <footer class="shadow-sm">
             <p class="mb-0">© {{ date('Y') }} Ecommerce Admin Panel. All rights reserved.</p>
