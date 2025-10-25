@@ -65,9 +65,9 @@
     <div class="sidebar">
         <a href="{{ route('admin.dashboard') }}">🏠 Dashboard</a>
          <a href="{{ route('admin.categories.index') }}">📦 Categories</a>
-        {{-- <a href="{{ route('admin.products.index') }}">🛍️ Products</a> 
-        <a href="{{ route('admin.users.index') }}">👥 Users</a>
-        <a href="{{ route('admin.orders.index') }}">📑 Orders</a> --}}
+        <a href="{{ route('admin.products.index') }}">🛍️ Products</a> 
+        {{-- <a href="{{ route('admin.users.index') }}">👥 Users</a>
+        <a href="{{ route('admin.orders.index') }}">📑 Orders</a> --}} 
     </div>
 
     {{-- ===== MAIN CONTENT ===== --}}
