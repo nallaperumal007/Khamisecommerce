@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\admin\LoginController as AdminLoginController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +43,9 @@ Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => 'admin.auth'], function(){
         Route::get('dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
         Route::get('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
+          Route::resource('categories', CategoryController::class)->names('admin.categories');
+    Route::resource('products', ProductController::class)->names('admin.products');
+    Route::resource('orders', OrderController::class)->only(['index', 'show'])->names('admin.orders');
     });
 
 });
