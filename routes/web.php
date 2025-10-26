@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::group(['prefix' => 'account'], function(){
         Route::get('categories',[UserController::class,'categories'])->name('account.categories');      
         Route::get('products',[UserController::class,'products'])->name('account.products');
         Route::get('orders',[UserController::class,'orders'])->name('account.orders');
+           Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
     });
 
 });

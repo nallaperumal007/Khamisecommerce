@@ -28,4 +28,4 @@
 </table>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('user.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Ecommerce\resources\views/account/categories.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('account.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Ecommerce\resources\views/account/categories.blade.php ENDPATH**/ ?>
