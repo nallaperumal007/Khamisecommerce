@@ -52,7 +52,7 @@
         <div class="container-fluid mt-5 pt-3">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
-
+<br /><br/><br/><br /><br/><br/>
         
         <footer class="shadow-sm">
             <p class="mb-0">© <?php echo e(date('Y')); ?> Ecommerce User Panel. All rights reserved.</p>
