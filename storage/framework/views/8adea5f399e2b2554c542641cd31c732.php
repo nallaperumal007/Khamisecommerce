@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Admin Dashboard')</title>
+    <title><?php echo $__env->yieldContent('title', 'Admin Dashboard'); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -50,38 +50,39 @@
 </head>
 <body>
 
-    {{-- ===== HEADER ===== --}}
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <span class="navbar-brand fw-bold">Ecommerce Admin</span>
             <div class="d-flex ms-auto">
-                <span class="me-3">Hello, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</span>
-                <a href="{{ route('admin.logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+                <span class="me-3">Hello, <?php echo e(Auth::guard('admin')->user()->name ?? 'Admin'); ?></span>
+                <a href="<?php echo e(route('admin.logout')); ?>" class="btn btn-outline-danger btn-sm">Logout</a>
             </div>
         </div>
     </nav>
 
-    {{-- ===== SIDEBAR ===== --}}
+    
     <div class="sidebar">
-        <a href="{{ route('admin.dashboard') }}">🏠 Dashboard</a>
-         <a href="{{ route('admin.categories.index') }}">📦 Categories</a>
-        <a href="{{ route('admin.products.index') }}">🛍️ Products</a> 
-        {{-- <a href="{{ route('admin.users.index') }}">👥 Users</a>--}}
-        <a href="{{ route('admin.orders.index') }}">📑 Orders</a> 
+        <a href="<?php echo e(route('admin.dashboard')); ?>">🏠 Dashboard</a>
+         <a href="<?php echo e(route('admin.categories.index')); ?>">📦 Categories</a>
+        <a href="<?php echo e(route('admin.products.index')); ?>">🛍️ Products</a> 
+        
+        <a href="<?php echo e(route('admin.orders.index')); ?>">📑 Orders</a> 
     </div>
 
-    {{-- ===== MAIN CONTENT ===== --}}
+    
     <main class="main-content">
         <div class="container-fluid mt-5 pt-3">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
 <br/><br/><br/><br/><br/><br/>
-        {{-- ===== FOOTER ===== --}}
+        
         <footer class="shadow-sm">
-            <p class="mb-0">© {{ date('Y') }} Ecommerce Admin Panel. All rights reserved.</p>
+            <p class="mb-0">© <?php echo e(date('Y')); ?> Ecommerce Admin Panel. All rights reserved.</p>
         </footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php /**PATH D:\Ecommerce\resources\views/admin/layout/master.blade.php ENDPATH**/ ?>
