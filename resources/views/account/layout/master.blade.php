@@ -44,9 +44,9 @@
     {{-- SIDEBAR --}}
     <div class="sidebar">
         <a href="{{ route('account.dashboard') }}">🏠 Dashboard</a>
-        {{-- <a href="{{ route('account.categories') }}">📦 Categories</a>
-        <a href="{{ route('account.products') }}">🛍️ Products</a>
-        <a href="{{ route('account.orders') }}">📑 Orders</a> --}}
+         <a href="{{ route('account.categories') }}">📦 Categories</a>
+         <a href="{{ route('account.products') }}">🛍️ Products</a>
+        {{-- <a href="{{ route('account.orders') }}">📑 Orders</a>  --}}
     </div>
 
     {{-- MAIN CONTENT --}}

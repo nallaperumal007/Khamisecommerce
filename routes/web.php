@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,10 @@ Route::group(['prefix' => 'account'], function(){
     // Authenticate middleware
     Route::group(['middleware' => 'auth'], function(){
         Route::get('dashboard',[DashboardController::class,'index'])->name('account.dashboard');
-        Route::get('logout',[LoginController::class,'logout'])->name('account.logout');        
+        Route::get('logout',[LoginController::class,'logout'])->name('account.logout');  
+        Route::get('categories',[UserController::class,'categories'])->name('account.categories');      
+        Route::get('products',[UserController::class,'products'])->name('account.products');
+        Route::get('orders',[UserController::class,'orders'])->name('account.orders');
     });
 
 });

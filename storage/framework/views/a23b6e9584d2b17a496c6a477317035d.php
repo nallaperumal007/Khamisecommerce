@@ -44,6 +44,7 @@
     
     <div class="sidebar">
         <a href="<?php echo e(route('account.dashboard')); ?>">🏠 Dashboard</a>
+         <a href="<?php echo e(route('account.categories')); ?>">📦 Categories</a>
         
     </div>
 
