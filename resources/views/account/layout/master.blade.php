@@ -44,9 +44,9 @@
     {{-- SIDEBAR --}}
     <div class="sidebar">
         <a href="{{ route('account.dashboard') }}">🏠 Dashboard</a>
-        {{-- <a href="{{ route('account.categories') }}">📦 Categories</a>
-        <a href="{{ route('account.products') }}">🛍️ Products</a>
-        <a href="{{ route('account.orders') }}">📑 Orders</a> --}}
+         <a href="{{ route('account.categories') }}">📦 Categories</a>
+         <a href="{{ route('account.products') }}">🛍️ Products</a>
+        {{-- <a href="{{ route('account.orders') }}">📑 Orders</a>  --}}
     </div>
 
     {{-- MAIN CONTENT --}}
@@ -54,7 +54,7 @@
         <div class="container-fluid mt-5 pt-3">
             @yield('content')
         </div>
-
+<br /><br/><br/><br /><br/><br/>
         {{-- FOOTER --}}
         <footer class="shadow-sm">
             <p class="mb-0">© {{ date('Y') }} Ecommerce User Panel. All rights reserved.</p>
