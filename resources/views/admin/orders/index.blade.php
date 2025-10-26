@@ -1,4 +1,5 @@
-@extends('admin.layouts.app')
+@extends('admin.layout.master')
+
 
 @section('title', 'Orders List')
 
