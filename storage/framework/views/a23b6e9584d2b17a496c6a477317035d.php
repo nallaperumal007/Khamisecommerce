@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'User Panel')</title>
+    <title><?php echo $__env->yieldContent('title', 'User Panel'); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f8f9fa; }
@@ -30,37 +30,36 @@
 </head>
 <body>
 
-    {{-- HEADER --}}
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <span class="navbar-brand fw-bold">Ecommerce User Panel</span>
             <div class="d-flex ms-auto">
-                <span class="me-3">Hello, {{ Auth::user()->name ?? 'User' }}</span>
-                <a href="{{ route('account.logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+                <span class="me-3">Hello, <?php echo e(Auth::user()->name ?? 'User'); ?></span>
+                <a href="<?php echo e(route('account.logout')); ?>" class="btn btn-outline-danger btn-sm">Logout</a>
             </div>
         </div>
     </nav>
 
-    {{-- SIDEBAR --}}
+    
     <div class="sidebar">
-        <a href="{{ route('account.dashboard') }}">🏠 Dashboard</a>
-        {{-- <a href="{{ route('account.categories') }}">📦 Categories</a>
-        <a href="{{ route('account.products') }}">🛍️ Products</a>
-        <a href="{{ route('account.orders') }}">📑 Orders</a> --}}
+        <a href="<?php echo e(route('account.dashboard')); ?>">🏠 Dashboard</a>
+        
     </div>
 
-    {{-- MAIN CONTENT --}}
+    
     <main class="main-content">
         <div class="container-fluid mt-5 pt-3">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
 
-        {{-- FOOTER --}}
+        
         <footer class="shadow-sm">
-            <p class="mb-0">© {{ date('Y') }} Ecommerce User Panel. All rights reserved.</p>
+            <p class="mb-0">© <?php echo e(date('Y')); ?> Ecommerce User Panel. All rights reserved.</p>
         </footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php /**PATH D:\Ecommerce\resources\views/account/layout/master.blade.php ENDPATH**/ ?>
