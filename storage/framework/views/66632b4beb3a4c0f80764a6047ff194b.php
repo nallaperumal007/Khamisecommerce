@@ -4,44 +4,127 @@
 
 <?php $__env->startSection('content'); ?>
 <h2>Products</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-        <tr>
-            <td><?php echo e($key + 1); ?></td>
-            <td>
+<style>
+/* --- Card Hover Animation --- */
+.product-card {
+    transition: all 0.4s ease;
+    border: none;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+}
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Image Section --- */
+.product-card img {
+    transition: transform 0.5s ease;
+}
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Price Badge --- */
+.price-badge {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Gradient Button --- */
+.btn-gradient {
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+}
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #6610f2, #007bff);
+    transform: translateY(-2px);
+}
+
+/* --- Category Icon + Text --- */
+.category-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6c757d;
+}
+.category-text i {
+    color: #ffb703;
+}
+
+/* --- Fallback Image Area --- */
+.no-image {
+    height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color: #adb5bd;
+    font-weight: 500;
+    font-size: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+</style>
+
+<div class="row">
+    <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+        <div class="col-md-4 mb-4">
+            <div class="card product-card h-100 shadow-sm">
+
+                
                 <?php if($product->image): ?>
-                    <img src="<?php echo e(asset('storage/'.$product->image)); ?>" width="60" height="60" style="object-fit:cover">
+                    <div class="position-relative">
+                        <img src="<?php echo e(asset('storage/'.$product->image)); ?>" 
+                             class="card-img-top" 
+                             alt="<?php echo e($product->name); ?>">
+                        <span class="badge price-badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill">
+                            ₹<?php echo e(number_format($product->price, 2)); ?>
+
+                        </span>
+                    </div>
                 <?php else: ?>
-                    <span>No Image</span>
+                    <div class="no-image">
+                        <i class="bi bi-image-alt fs-4 me-2"></i> No Image
+                    </div>
                 <?php endif; ?>
-            </td>
-            <td><?php echo e($product->name); ?></td>
-            <td><?php echo e($product->category->name ?? 'N/A'); ?></td>
-            <td>₹<?php echo e(number_format($product->price,2)); ?></td>
-            <td>
-                <form action="<?php echo e(route('cart.add')); ?>" method="POST">
-                    <?php echo csrf_field(); ?>
-                    <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
-                    <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
-                </form>
-            </td>
-        </tr>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-        <tr><td colspan="6" class="text-center">No products found.</td></tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+
+                
+                <div class="card-body d-flex flex-column p-3">
+                    <h5 class="card-title fw-semibold text-dark text-truncate mb-2">
+                        <?php echo e($product->name); ?>
+
+                    </h5>
+
+                    <p class="category-text small mb-2">
+                        <i class="bi bi-tag-fill"></i>
+                        <span><?php echo e($product->category->name ?? 'N/A'); ?></span>
+                    </p>
+
+                    <div class="mt-auto">
+                        <form action="<?php echo e(route('cart.add')); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                            <button type="submit" 
+                                    class="btn btn-gradient w-100 fw-bold py-2 rounded-3">
+                                <i class="bi bi-cart-fill me-2"></i>Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+        <div class="col-12 text-center">
+            <p class="text-muted mt-5">No products found.</p>
+        </div>
+    <?php endif; ?>
+</div>
+
 
 <h3>Cart</h3>
 <?php if(session('cart') && count(session('cart')) > 0): ?>
