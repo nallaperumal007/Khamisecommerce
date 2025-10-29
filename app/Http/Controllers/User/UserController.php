@@ -30,7 +30,7 @@ class UserController extends Controller
         return view('account.orders', compact('orders'));
     }
 
-    public function logout() {
+public function logout() {
         Auth::logout();
         return redirect()->route('login'); 
     }
