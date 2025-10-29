@@ -1,8 +1,8 @@
-@extends('admin.layout.master')
 
-@section('title', 'Add Category')
 
-@section('content')
+<?php $__env->startSection('title', 'Edit Category'); ?>
+
+<?php $__env->startSection('content'); ?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
@@ -69,7 +69,7 @@
         box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
     }
 
-    .btn-cancel {
+    .btn-back {
         background-color: #e9ecef;
         color: #2c3e50;
         font-weight: 500;
@@ -78,7 +78,7 @@
         transition: all 0.3s ease;
     }
 
-    .btn-cancel:hover {
+    .btn-back:hover {
         background-color: #d6d8db;
         transform: translateY(-2px);
     }
@@ -112,36 +112,39 @@
 </style>
 
 <div class="form-container">
-    <h2>➕ Add Category</h2>
+    <h2>✏️ Edit Category</h2>
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger mb-4">
             <strong>⚠ Oops!</strong> Please fix the following errors:
             <ul class="mt-2 mb-0">
-                @foreach($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($err); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
+    <?php endif; ?>
 
-    <form action="{{ route('admin.categories.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('admin.categories.update', $category->id)); ?>" method="POST">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
 
         <div class="mb-3">
             <label class="form-label">Category Name</label>
-            <input type="text" name="name" class="form-control" placeholder="Enter category name" required>
+            <input type="text" name="name" value="<?php echo e($category->name); ?>" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" rows="3" placeholder="Enter category description"></textarea>
+            <textarea name="description" class="form-control" rows="3"><?php echo e($category->description); ?></textarea>
         </div>
 
         <div class="d-flex gap-2 mt-4">
-            <button type="submit" class="btn btn-gradient-primary">💾 Save</button>
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-cancel">← Cancel</a>
+            <button type="submit" class="btn btn-gradient-primary">💾 Update</button>
+            <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn btn-back">← Back</a>
         </div>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Ecommerce\resources\views/admin/categories/edit.blade.php ENDPATH**/ ?>

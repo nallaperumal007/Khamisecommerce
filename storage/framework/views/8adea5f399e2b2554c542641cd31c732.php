@@ -238,7 +238,7 @@
         <div class="container-fluid">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
-
+ <br/><br/><br/><br/><br/><br/><br/><br/>
         
         <footer>
             <p class="mb-0">© <?php echo e(date('Y')); ?> Ecommerce Admin Panel. All rights reserved.</p>

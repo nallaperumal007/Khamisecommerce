@@ -238,7 +238,7 @@
         <div class="container-fluid">
             @yield('content')
         </div>
-
+ <br/><br/><br/><br/><br/><br/><br/><br/>
         {{-- ===== FOOTER ===== --}}
         <footer>
             <p class="mb-0">© {{ date('Y') }} Ecommerce Admin Panel. All rights reserved.</p>
