@@ -1,8 +1,8 @@
-@extends('admin.layout.master')
 
-@section('title', 'Add Category')
 
-@section('content')
+<?php $__env->startSection('title', 'Add Category'); ?>
+
+<?php $__env->startSection('content'); ?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
@@ -114,19 +114,19 @@
 <div class="form-container">
     <h2>➕ Add Category</h2>
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger mb-4">
             <strong>⚠ Oops!</strong> Please fix the following errors:
             <ul class="mt-2 mb-0">
-                @foreach($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($err); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
+    <?php endif; ?>
 
-    <form action="{{ route('admin.categories.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('admin.categories.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
 
         <div class="mb-3">
             <label class="form-label">Category Name</label>
@@ -140,8 +140,10 @@
 
         <div class="d-flex gap-2 mt-4">
             <button type="submit" class="btn btn-gradient-primary">💾 Save</button>
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-cancel">← Cancel</a>
+            <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn btn-cancel">← Cancel</a>
         </div>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Ecommerce\resources\views/admin/categories/create.blade.php ENDPATH**/ ?>

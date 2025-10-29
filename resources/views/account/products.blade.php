@@ -3,61 +3,122 @@
 @section('title', 'Products')
 
 @section('content')
-<h2>Products</h2>
 <style>
-/* --- Card Hover Animation --- */
+/* ===== Global Layout ===== */
+body {
+    background: linear-gradient(135deg, #f9fafc, #eef1f7);
+    font-family: 'Poppins', sans-serif;
+    color: #2c3e50;
+}
+
+/* ===== Section Headings ===== */
+h2, h3 {
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+/* ===== Product Grid ===== */
 .product-card {
-    transition: all 0.4s ease;
     border: none;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 18px;
     overflow: hidden;
+    transition: all 0.4s ease;
     position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
 }
 .product-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 35px rgba(78,115,223,0.25);
 }
-
-/* --- Image Section --- */
 .product-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
     transition: transform 0.5s ease;
+    border-bottom: 1px solid #f1f1f1;
 }
 .product-card:hover img {
     transform: scale(1.05);
 }
 
-/* --- Price Badge --- */
+/* Price Badge */
 .price-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
     background: linear-gradient(135deg, #00b09b, #96c93d);
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* --- Gradient Button --- */
-.btn-gradient {
-    background: linear-gradient(135deg, #007bff, #6610f2);
     color: #fff;
-    border: none;
-    transition: all 0.3s ease;
-}
-.btn-gradient:hover {
-    background: linear-gradient(135deg, #6610f2, #007bff);
-    transform: translateY(-2px);
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Category Icon + Text --- */
+/* Category + Ratings */
 .category-text {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     color: #6c757d;
+    font-size: 0.9rem;
 }
 .category-text i {
     color: #ffb703;
 }
+.star-rating {
+    color: #f7b731;
+    font-size: 0.85rem;
+}
 
-/* --- Fallback Image Area --- */
+/* Quick View Overlay */
+.quick-view-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+.product-card:hover .quick-view-overlay {
+    opacity: 1;
+}
+.quick-view-overlay button {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+.quick-view-overlay button:hover {
+    background: #4e73df;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Gradient Button */
+.btn-gradient {
+    background: linear-gradient(135deg, #4e73df, #6f42c1);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-weight: 500;
+}
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #6f42c1, #4e73df);
+    transform: translateY(-2px);
+}
+
+/* No Image */
 .no-image {
     height: 230px;
     display: flex;
@@ -66,49 +127,160 @@
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     color: #adb5bd;
     font-weight: 500;
-    font-size: 15px;
+}
+
+/* ===== Cart Section ===== */
+.cart-wrapper {
+    margin-top: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+}
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.cart-table thead {
+    background: linear-gradient(135deg, #eef1fb, #f8f9fc);
+    font-weight: 600;
+}
+.cart-table th, .cart-table td {
+    padding: 14px 12px;
     border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+.cart-table tr:hover {
+    background: rgba(78, 115, 223, 0.05);
+    transition: background 0.3s ease;
+}
+.cart-table img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+.cart-table input[type="number"] {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 4px 6px;
+    text-align: center;
+    width: 70px;
+}
+.btn-sm {
+    border-radius: 8px;
+    font-weight: 500;
+}
+.total-row td {
+    background: linear-gradient(135deg, #f8f9fc, #eef1fb);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.grand-total {
+    color: #4e73df;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* Checkout Button */
+.btn-checkout {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #4e73df, #6f42c1);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn-checkout:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #6f42c1, #4e73df);
+}
+
+/* Empty States */
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-top: 30px;
+}
+.empty-cart .icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #4e73df, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.empty-cart p {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+/* Floating Cart Summary (desktop) */
+.cart-summary {
+    width: 220px;
+    z-index: 10;
+}
+.cart-summary h6 {
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+/* Sticky Checkout Bar (mobile) */
+.checkout-bar {
+    border-top: 1px solid #dee2e6;
+}
+@media (max-width: 991px) {
+    .cart-summary { display: none; }
 }
 </style>
 
+<!-- ===== Products Section ===== -->
+<h2>🛍️ Products</h2>
 <div class="row">
     @forelse($products as $product)
-        <div class="col-md-4 mb-4">
-            <div class="card product-card h-100 shadow-sm">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+            <div class="card product-card h-100">
 
                 {{-- Product Image --}}
                 @if($product->image)
                     <div class="position-relative">
-                        <img src="{{ asset('storage/'.$product->image) }}" 
-                             class="card-img-top" 
-                             alt="{{ $product->name }}">
-                        <span class="badge price-badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill">
-                            ₹{{ number_format($product->price, 2) }}
-                        </span>
+                        <img src="{{ asset('storage/'.$product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                        <span class="price-badge">₹{{ number_format($product->price, 2) }}</span>
+                        <div class="quick-view-overlay">
+                            <button type="button"><i class="bi bi-eye me-1"></i>Quick View</button>
+                        </div>
                     </div>
                 @else
                     <div class="no-image">
-                        <i class="bi bi-image-alt fs-4 me-2"></i> No Image
+                        <i class="bi bi-image-alt fs-4 me-2"></i>No Image
                     </div>
                 @endif
 
-                {{-- Card Body --}}
+                {{-- Product Info --}}
                 <div class="card-body d-flex flex-column p-3">
-                    <h5 class="card-title fw-semibold text-dark text-truncate mb-2">
-                        {{ $product->name }}
-                    </h5>
-
-                    <p class="category-text small mb-2">
-                        <i class="bi bi-tag-fill"></i>
-                        <span>{{ $product->category->name ?? 'N/A' }}</span>
+                    <h5 class="card-title fw-semibold text-truncate mb-2">{{ $product->name }}</h5>
+                    <p class="star-rating mb-2">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                        <i class="bi bi-star"></i>
                     </p>
+                    <p class="category-text mb-3"><i class="bi bi-tag-fill"></i>{{ $product->category->name ?? 'N/A' }}</p>
 
                     <div class="mt-auto">
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" 
-                                    class="btn btn-gradient w-100 fw-bold py-2 rounded-3">
+                            <button type="submit" class="btn btn-gradient w-100 py-2">
                                 <i class="bi bi-cart-fill me-2"></i>Add to Cart
                             </button>
                         </form>
@@ -118,57 +290,105 @@
         </div>
     @empty
         <div class="col-12 text-center">
-            <p class="text-muted mt-5">No products found.</p>
+            <div class="empty-cart">
+                <div class="icon">📭</div>
+                <h5>No products found</h5>
+                <p>Check back later or explore new categories.</p>
+            </div>
         </div>
     @endforelse
 </div>
 
+<!-- ===== Cart Section ===== -->
+<div class="cart-wrapper mt-5">
+    <h3>🧺 Your Cart</h3>
 
-<h3>Cart</h3>
+    @if(session('cart') && count(session('cart')) > 0)
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $grandTotal = 0; @endphp
+                @foreach(session('cart') as $id => $details)
+                    @php 
+                        $total = $details['price'] * $details['quantity'];
+                        $grandTotal += $total;
+                    @endphp
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                @if(isset($details['image']))
+                                    <img src="{{ asset('storage/'.$details['image']) }}" alt="{{ $details['name'] }}">
+                                @else
+                                    <img src="https://via.placeholder.com/45" alt="Product">
+                                @endif
+                                <span>{{ $details['name'] }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <form action="{{ route('cart.update') }}" method="POST" class="d-flex align-items-center">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $id }}">
+                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" min="1">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary ms-2">Update</button>
+                            </form>
+                        </td>
+                        <td>₹{{ number_format($details['price'], 2) }}</td>
+                        <td>₹{{ number_format($total, 2) }}</td>
+                        <td>
+                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr class="total-row">
+                    <td colspan="3" class="text-end">Grand Total:</td>
+                    <td colspan="2" class="grand-total">₹{{ number_format($grandTotal, 2) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-end mt-4">
+            <a href="{{ route('checkout') }}" class="btn-checkout">
+                Proceed to Payment <i class="bi bi-arrow-right-circle"></i>
+            </a>
+        </div>
+    @else
+        <div class="empty-cart">
+            <div class="icon">🛒</div>
+            <h5>Your cart is empty</h5>
+            <p>Add some products to get started!</p>
+        </div>
+    @endif
+</div>
+
+<!-- Floating Cart Summary (Desktop) -->
 @if(session('cart') && count(session('cart')) > 0)
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php $grandTotal = 0; @endphp
-        @foreach(session('cart') as $id => $details)
-            @php $total = $details['price'] * $details['quantity']; $grandTotal += $total; @endphp
-        <tr>
-            <td>{{ $details['name'] }}</td>
-            <td>
-                <form action="{{ route('cart.update') }}" method="POST" class="d-flex">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $id }}">
-                    <input type="number" name="quantity" value="{{ $details['quantity'] }}" min="1" class="form-control form-control-sm" style="width:60px;">
-                    <button type="submit" class="btn btn-secondary btn-sm ms-1">Update</button>
-                </form>
-            </td>
-            <td>₹{{ number_format($details['price'],2) }}</td>
-            <td>₹{{ number_format($total,2) }}</td>
-            <td>
-                <form action="{{ route('cart.remove', $id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-        <tr>
-            <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
-            <td colspan="2"><strong>₹{{ number_format($grandTotal,2) }}</strong></td>
-        </tr>
-    </tbody>
-</table>
-<a href="{{ route('checkout') }}" class="btn btn-success">Proceed to Payment</a>
-@else
-<p>No products in cart.</p>
+<div class="cart-summary position-fixed end-0 top-50 translate-middle-y me-4 d-none d-lg-block p-3 shadow-lg rounded-4 bg-white">
+    <h6 class="fw-semibold mb-2">🛒 Cart Summary</h6>
+    <p class="mb-1 text-muted">Items: {{ count(session('cart')) }}</p>
+    <p class="fw-bold text-primary">Total: ₹{{ number_format($grandTotal, 2) }}</p>
+    <a href="{{ route('checkout') }}" class="btn btn-gradient btn-sm w-100">Checkout</a>
+</div>
+
+<!-- Sticky Checkout Bar (Mobile) -->
+<div class="checkout-bar fixed-bottom bg-white shadow-lg p-3 d-lg-none">
+    <div class="d-flex justify-content-between align-items-center">
+        <strong>Total: ₹{{ number_format($grandTotal, 2) }}</strong>
+        <a href="{{ route('checkout') }}" class="btn btn-gradient btn-sm rounded-pill px-4">
+            Checkout <i class="bi bi-arrow-right-circle ms-1"></i>
+        </a>
+    </div>
+</div>
 @endif
 @endsection
