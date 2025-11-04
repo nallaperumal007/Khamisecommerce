@@ -20,10 +20,6 @@ Route::get('/gallery', [UserController::class, 'gallery'])->name('gallery');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 // Route::group(['prefix' => 'account'], function(){

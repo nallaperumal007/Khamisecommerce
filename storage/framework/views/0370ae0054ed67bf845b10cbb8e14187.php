@@ -1,6 +1,6 @@
-@extends('layout.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="container py-5" style="max-width: 1000px; line-height: 1.8;">
 
     <h2 class="fw-bold text-success mb-3 text-center">Khamis Healthy Foods</h2>
@@ -76,4 +76,6 @@
     </div>
 
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Ecommerce\resources\views/user/about.blade.php ENDPATH**/ ?>
