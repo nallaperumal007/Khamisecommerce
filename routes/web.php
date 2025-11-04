@@ -6,10 +6,19 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+// User pages
+Route::get('/', [UserController::class, 'home'])->name('home');
+Route::get('/about', [UserController::class, 'about'])->name('about');
+Route::get('/category', [UserController::class, 'category'])->name('category');
+Route::get('/products', [UserController::class, 'products'])->name('products');
+Route::get('/gallery', [UserController::class, 'gallery'])->name('gallery');
+Route::get('/contact', [UserController::class, 'contact'])->name('contact');
+
 
 Route::get('/', function () {
     return view('welcome');
