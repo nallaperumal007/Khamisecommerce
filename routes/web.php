@@ -17,28 +17,30 @@ Route::get('/', function () {
 
 
 
-Route::group(['prefix' => 'account'], function(){
-    // Guest middleware
-    Route::group(['middleware' => 'guest'], function(){
-        Route::get('login',[LoginController::class,'index'])->name('account.login');
-        Route::post('login',[LoginController::class,'authenticate'])->name('account.authenticate');        
-        Route::get('register',[LoginController::class,'register'])->name('account.register');
-        Route::post('register',[LoginController::class,'processRegister'])->name('account.processRegister');
-    });
-    // Authenticate middleware
-    Route::group(['middleware' => 'auth'], function(){
-        Route::get('dashboard',[DashboardController::class,'index'])->name('account.dashboard');
-        Route::get('logout',[LoginController::class,'logout'])->name('account.logout');  
-        Route::get('categories',[UserController::class,'categories'])->name('account.categories');      
-        Route::get('products',[UserController::class,'products'])->name('account.products');
-        Route::get('orders',[UserController::class,'orders'])->name('account.orders');
-           Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-    });
+// Route::group(['prefix' => 'account'], function(){
+//     // Guest middleware
+//     Route::group(['middleware' => 'guest'], function(){
+//         Route::get('login',[LoginController::class,'index'])->name('account.login');
+//         Route::post('login',[LoginController::class,'authenticate'])->name('account.authenticate');        
+//         Route::get('register',[LoginController::class,'register'])->name('account.register');
+//         Route::post('register',[LoginController::class,'processRegister'])->name('account.processRegister');
+//     });
+//        Route::get('dashboard',[DashboardController::class,'index'])->name('account.dashboard');
+//     Route::get('categories',[UserController::class,'categories'])->name('account.categories');      
+//         Route::get('products',[UserController::class,'products'])->name('account.products');
+//         Route::get('orders',[UserController::class,'orders'])->name('account.orders');
+//            Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+//     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+//     Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+//     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+//     // Authenticate middleware
+//     Route::group(['middleware' => 'auth'], function(){
+     
+//         Route::get('logout',[LoginController::class,'logout'])->name('account.logout');  
+        
+//     });
 
-});
+// });
 
 
 
