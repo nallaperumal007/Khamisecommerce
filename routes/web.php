@@ -17,6 +17,7 @@ Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/category', [UserController::class, 'category'])->name('user.category');
 Route::get('/categories/{id}', [UserController::class, 'categoryDetail'])->name('user.category.detail');
 Route::get('/products', [UserController::class, 'products'])->name('products');
+Route::get('/products/{id}', [UserController::class, 'productDetail'])->name('user.product.detail');
 Route::get('/gallery', [UserController::class, 'gallery'])->name('gallery');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
 
