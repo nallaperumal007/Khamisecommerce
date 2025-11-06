@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -21,9 +22,22 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required']);
-        Category::create($request->only('name', 'description'));
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully');
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = $request->only('name', 'description');
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        Category::create($data);
+
+        return redirect()->route('admin.categories.index')
+                         ->with('success', '✅ Category created successfully');
     }
 
     public function edit(Category $category)
@@ -33,14 +47,35 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $request->validate(['name' => 'required']);
-        $category->update($request->only('name', 'description'));
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = $request->only('name', 'description');
+
+        if ($request->hasFile('image')) {
+            if ($category->image && Storage::disk('public')->exists($category->image)) {
+                Storage::disk('public')->delete($category->image);
+            }
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        $category->update($data);
+
+        return redirect()->route('admin.categories.index')
+                         ->with('success', '✅ Category updated successfully');
     }
 
     public function destroy(Category $category)
     {
+        if ($category->image && Storage::disk('public')->exists($category->image)) {
+            Storage::disk('public')->delete($category->image);
+        }
+
         $category->delete();
-        return back()->with('success', 'Category deleted');
+
+        return back()->with('success', '🗑️ Category deleted successfully');
     }
 }

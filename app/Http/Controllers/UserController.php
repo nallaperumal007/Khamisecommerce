@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -19,11 +20,18 @@ class UserController extends Controller
     }
 
     // ✅ Category page
-    public function category()
+ public function category()
     {
-        return view('user.category');
+        $categories = Category::latest()->get();
+        return view('user.category', compact('categories'));
     }
 
+    // Show single category details
+    public function categoryDetail($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('user.category-detail', compact('category'));
+    }
     // ✅ Products page
     public function products()
     {

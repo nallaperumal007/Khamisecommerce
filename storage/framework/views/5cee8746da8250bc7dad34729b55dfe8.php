@@ -1,0 +1,1 @@
+<?php /**PATH D:\Ecommerce\resources\views/user/category-detail.blade.php ENDPATH**/ ?>

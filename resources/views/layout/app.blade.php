@@ -96,16 +96,14 @@
       </button>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
-        <ul class="navbar-nav align-items-center gap-3">
-          <li><a class="nav-link" href="{{ route('home') }}">HOME</a></li>
-          <li><a class="nav-link" href="{{ route('about') }}">ABOUT</a></li>
-          <li><a class="nav-link" href="{{ route('category') }}">CATEGORY</a></li>
-          <li><a class="nav-link" href="{{ route('products') }}">PRODUCTS</a></li>
-          <li><a class="nav-link" href="{{ route('gallery') }}">GALLERY</a></li>
-          <li><a class="nav-link" href="{{ route('contact') }}">CONTACT-US</a></li>
-          {{-- <li><a class="btn btn-login px-3" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
-          <li><a class="btn btn-signup px-3" href="{{ route('register') }}"><i class="bi bi-person-plus"></i> Sign Up</a></li> --}}
-        </ul>
+         <ul class="navbar-nav align-items-center gap-3">
+  <li><a class="nav-link" href="{{ route('home') }}">HOME</a></li>
+  <li><a class="nav-link" href="{{ route('about') }}">ABOUT</a></li>
+  <li><a class="nav-link" href="{{ route('user.category') }}">CATEGORY</a></li>
+  <li><a class="nav-link" href="{{ route('products') }}">PRODUCTS</a></li>
+  <li><a class="nav-link" href="{{ route('gallery') }}">GALLERY</a></li>
+  <li><a class="nav-link" href="{{ route('contact') }}">CONTACT-US</a></li>
+</ul>
       </div>
     </div>
   </nav>
