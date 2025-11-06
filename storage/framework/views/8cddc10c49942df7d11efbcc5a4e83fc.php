@@ -96,7 +96,7 @@
       </button>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
-      <ul class="navbar-nav align-items-center gap-3">
+         <ul class="navbar-nav align-items-center gap-3">
   <li><a class="nav-link" href="<?php echo e(route('home')); ?>">HOME</a></li>
   <li><a class="nav-link" href="<?php echo e(route('about')); ?>">ABOUT</a></li>
   <li><a class="nav-link" href="<?php echo e(route('user.category')); ?>">CATEGORY</a></li>
@@ -104,7 +104,6 @@
   <li><a class="nav-link" href="<?php echo e(route('gallery')); ?>">GALLERY</a></li>
   <li><a class="nav-link" href="<?php echo e(route('contact')); ?>">CONTACT-US</a></li>
 </ul>
-
       </div>
     </div>
   </nav>
