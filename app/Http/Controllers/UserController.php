@@ -33,10 +33,12 @@ class UserController extends Controller
         return view('user.category-detail', compact('category'));
     }
     // ✅ Products page
-    public function products()
-    {
-        return view('user.products');
-    }
+  public function products()
+{
+    $products = \App\Models\Product::latest()->get();
+    return view('user.products', compact('products'));
+}
+
 
     // ✅ Gallery page
     public function gallery()

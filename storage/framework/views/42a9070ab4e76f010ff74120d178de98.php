@@ -64,6 +64,16 @@
                        style="padding: 12px;">
             </div>
 
+            <!-- Description -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold" style="color:#333;">Description</label>
+                <textarea name="description" 
+                          class="form-control shadow-sm rounded-3" 
+                          rows="4" 
+                          placeholder="Enter product description..."
+                          style="padding: 12px;"><?php echo e(old('description', $product->description)); ?></textarea>
+            </div>
+
             <!-- Current Image -->
             <div class="mb-4">
                 <label class="form-label fw-semibold" style="color:#333;">Current Image</label><br>
@@ -130,7 +140,7 @@ function previewNewImage(event) {
         font-family: 'Poppins', sans-serif;
     }
 
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
         border-color: #4e73df !important;
         box-shadow: 0 0 0 0.25rem rgba(78,115,223,0.25) !important;
     }
