@@ -49,6 +49,16 @@
                 </select>
             </div>
 
+            <!-- Description -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold" style="color:#333;">Product Description</label>
+                <textarea name="description" 
+                          class="form-control shadow-sm rounded-3" 
+                          rows="4"
+                          placeholder="Enter product description (optional)"
+                          style="padding: 12px; border: 1px solid #ced4da; transition: 0.3s;"></textarea>
+            </div>
+
             <!-- Price -->
             <div class="mb-4">
                 <label class="form-label fw-semibold" style="color:#333;">Price (₹) <span class="text-danger">*</span></label>
@@ -107,7 +117,7 @@ function previewImage(event) {
         font-family: 'Poppins', sans-serif;
     }
 
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
         border-color: #4e73df !important;
         box-shadow: 0 0 0 0.25rem rgba(78,115,223,0.25) !important;
     }

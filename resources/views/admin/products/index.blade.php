@@ -156,6 +156,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
+                    <th>Description</th>
                     <th>Price (₹)</th>
                     <th>Action</th>
                 </tr>
@@ -173,8 +174,14 @@
                     </td>
                     <td><strong>{{ $product->name }}</strong></td>
                     <td><span class="badge bg-light text-dark px-3 py-2" style="border-radius:8px;">{{ $product->category->name ?? 'N/A' }}</span></td>
-                    <td><span class="badge bg-primary-subtle text-primary px-3 py-2" style="border-radius:8px;">₹{{ number_format($product->price, 2) }}</span></td>
-                    <td>
+               <td>
+    <p class="text-info fw-medium mb-0" style="font-size: 15px;">
+        {{ $product->description ?? 'N/A' }}
+    </p>
+</td>
+    <td><span class="badge bg-primary-subtle text-primary px-3 py-2" style="border-radius:8px;">₹{{ number_format($product->price, 2) }}</span></td>
+                   
+                   <td>
                         <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
