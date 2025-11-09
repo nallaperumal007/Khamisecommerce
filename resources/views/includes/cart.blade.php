@@ -21,7 +21,8 @@
       </div>
       <div class="modal-footer">
         <strong>Total: ₹<span id="cartTotal">0</span></strong>
-        <button class="btn btn-success">Checkout</button>
+     <button class="btn btn-success" id="checkoutBtn">Checkout</button>
+
       </div>
     </div>
   </div>
@@ -121,6 +122,9 @@ document.querySelectorAll('.addToCartBtn').forEach(btn=>{
     btn.addEventListener('click',()=>{
         addToCart(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price));
     });
+});
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+  window.location.href = '/checkout';
 });
 
 // Render cart initially on page load

@@ -16,9 +16,15 @@
         <div class="col-lg-6 col-md-6">
             <h2 class="fw-bold mb-3"><?php echo e($product->name); ?></h2>
             <p class="text-muted mb-3"><?php echo e($product->description ?? 'No description available.'); ?></p>
+
+            <!-- Product Price -->
             <div class="mb-3">
-                <span class="fw-bold text-success">₹<?php echo e(number_format($product->price,2)); ?></span>
+                <span class="fw-bold text-success fs-5">
+                    ₹<span id="priceDisplay"><?php echo e(number_format($product->price,2)); ?></span>
+                </span>
             </div>
+
+            <!-- Quantity Control -->
             <div class="d-flex align-items-center mb-4">
                 <label class="me-3 fw-semibold">Quantity:</label>
                 <div class="input-group" style="width:140px;">
@@ -27,12 +33,15 @@
                     <button class="btn btn-outline-secondary" id="increaseBtn">+</button>
                 </div>
             </div>
+
+            <!-- Add to Cart -->
             <button class="btn btn-success addToCartBtn" 
                     data-id="<?php echo e($product->id); ?>" 
                     data-name="<?php echo e($product->name); ?>" 
                     data-price="<?php echo e($product->price); ?>">
                 <i class="bi bi-cart-plus me-2"></i> Add to Cart
             </button>
+
             <div class="mt-4">
                 <a href="<?php echo e(route('products')); ?>" class="btn btn-outline-secondary">← Back to Products</a>
             </div>
@@ -40,20 +49,45 @@
     </div>
 </div>
 
-<?php echo $__env->make('includes.cart', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> <!-- Include cart -->
+<?php echo $__env->make('includes.cart', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> <!-- Cart modal include -->
+
 <script>
-document.getElementById('increaseBtn').addEventListener('click', ()=>{
-    document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value)+1;
-});
-document.getElementById('decreaseBtn').addEventListener('click', ()=>{
-    let val = parseInt(document.getElementById('quantity').value);
-    if(val>1) document.getElementById('quantity').value = val-1;
-});
-document.querySelector('.addToCartBtn').addEventListener('click',()=>{
-    let qty = parseInt(document.getElementById('quantity').value);
-    let btn = document.querySelector('.addToCartBtn');
-    addToCart(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price), qty);
-    document.getElementById('quantity').value = 1;
+document.addEventListener("DOMContentLoaded", () => {
+    const increaseBtn = document.getElementById('increaseBtn');
+    const decreaseBtn = document.getElementById('decreaseBtn');
+    const quantityInput = document.getElementById('quantity');
+    const priceDisplay = document.getElementById('priceDisplay');
+    const basePrice = parseFloat("<?php echo e($product->price); ?>"); // Base price of single item
+
+    // Update total price on screen
+    function updatePrice() {
+        const qty = parseInt(quantityInput.value);
+        priceDisplay.textContent = (basePrice * qty).toFixed(2);
+    }
+
+    increaseBtn.addEventListener('click', () => {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        updatePrice();
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+        let val = parseInt(quantityInput.value);
+        if (val > 1) {
+            quantityInput.value = val - 1;
+            updatePrice();
+        }
+    });
+
+    // Add to Cart logic
+    document.querySelector('.addToCartBtn').addEventListener('click', () => {
+        let qty = parseInt(quantityInput.value);
+        let btn = document.querySelector('.addToCartBtn');
+        addToCart(btn.dataset.id, btn.dataset.name, basePrice, qty);
+
+        // Reset quantity and price
+        quantityInput.value = 1;
+        updatePrice();
+    });
 });
 </script>
 <?php $__env->stopSection(); ?>
