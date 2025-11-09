@@ -38,6 +38,12 @@ class UserController extends Controller
     $products = \App\Models\Product::latest()->get();
     return view('user.products', compact('products'));
 }
+// ✅ Show single product detail
+public function productDetail($id)
+{
+    $product = \App\Models\Product::findOrFail($id);
+    return view('user.product-detail', compact('product'));
+}
 
 
     // ✅ Gallery page

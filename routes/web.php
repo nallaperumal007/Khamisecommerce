@@ -6,10 +6,17 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+
 
 // User pages
 Route::get('/', [UserController::class, 'home'])->name('home');
@@ -17,6 +24,7 @@ Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/category', [UserController::class, 'category'])->name('user.category');
 Route::get('/categories/{id}', [UserController::class, 'categoryDetail'])->name('user.category.detail');
 Route::get('/products', [UserController::class, 'products'])->name('products');
+Route::get('/products/{id}', [UserController::class, 'productDetail'])->name('user.product.detail');
 Route::get('/gallery', [UserController::class, 'gallery'])->name('gallery');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
 
