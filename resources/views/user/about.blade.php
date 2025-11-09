@@ -67,13 +67,6 @@
         </div>
     </div>
 
-    <div class="text-center mt-5">
-        <h5 class="fw-bold text-success">Contact Us</h5>
-        <p class="mb-0">📧 Email: <a href="mailto:khamisfoods@gmail.com">khamisfoods@gmail.com</a></p>
-        <p class="mb-0">📞 Phone: +91 89302 84249 / +91 99645 18855</p>
-        <p class="mb-0">🏬 Marketing: +91 73392 31106</p>
-        <p>🌐 Website: <a href="https://www.khamisfoods.com" target="_blank">www.khamisfoods.com</a></p>
-    </div>
-
+    
 </div>
 @endsection
