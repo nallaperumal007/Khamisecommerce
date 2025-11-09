@@ -5,234 +5,126 @@
 @section('content')
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
     body {
         font-family: 'Poppins', sans-serif;
         background: #f8f9fc;
         color: #2c3e50;
     }
-
-    /* 🌈 Table Container */
-    .orders-container {
-        background: #fff;
+    .table-container {
+        background: linear-gradient(135deg, #f8f9fa, #eef1f7);
         border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-        padding: 25px;
-        margin-top: 40px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        padding: 30px;
         animation: fadeIn 0.8s ease;
+        margin: 40px auto;
     }
-
-    .orders-container h2 {
+    h2 {
         font-weight: 600;
-        margin-bottom: 25px;
         color: #2c3e50;
+        margin-bottom: 1.5rem;
     }
-
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(15px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
-    /* 📋 Table Styling */
     .table {
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 8px;
+        border-collapse: collapse;
     }
-
-    thead th {
-        background: linear-gradient(135deg, #4e73df, #6f42c1);
-        color: #fff !important;
-        font-weight: 600;
-        border: none !important;
-        padding: 14px;
-    }
-
-    tbody tr {
-        background: #fff;
-        transition: all 0.3s ease;
-    }
-
-    tbody tr:hover {
-        background-color: #f1f3f7;
-        transform: scale(1.01);
-        border-radius: 8px;
-    }
-
-    td {
-        vertical-align: middle;
-        color: #2c3e50;
-        padding: 12px 16px !important;
-        border-top: none !important;
-    }
-
-    /* 🏷️ Status Badges */
-    .badge {
+    .table th {
+        background-color: #4e73df;
+        color: #fff;
+        padding: 12px;
+        text-align: left;
         font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 30px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
     }
-
-    .badge:hover {
-        transform: scale(1.05);
+    .table td {
+        padding: 12px;
+        vertical-align: top;
+        border-bottom: 1px solid #dee2e6;
     }
-
-    .badge.bg-warning {
-        background: #fff3cd !important;
-        color: #856404 !important;
-    }
-
-    .badge.bg-success {
-        background: #d4edda !important;
-        color: #155724 !important;
-    }
-
-    .badge.bg-danger {
-        background: #f8d7da !important;
-        color: #721c24 !important;
-    }
-
-    .badge.bg-secondary {
-        background: #e2e3e5 !important;
-        color: #383d41 !important;
-    }
-
-    /* 🔘 Buttons */
-    .btn-view {
+    .badge {
         background: linear-gradient(135deg, #4e73df, #6f42c1);
         color: #fff;
-        border: none;
+        border-radius: 6px;
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+    .order-items {
+        background-color: #f8f9fc;
         border-radius: 8px;
-        padding: 6px 14px;
+        padding: 10px;
         font-size: 0.9rem;
-        transition: all 0.3s ease;
     }
-
-    .btn-view:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+    .order-items li {
+        list-style: none;
+        border-bottom: 1px solid #e9ecef;
+        padding: 6px 0;
     }
-
-    /* 🔍 Search Bar */
-    .search-bar {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 15px;
+    .order-items li:last-child {
+        border-bottom: none;
     }
-
-    .search-bar input {
-        border-radius: 8px;
-        border: 1px solid #d1d3e2;
-        padding: 8px 12px;
-        width: 260px;
-        transition: all 0.3s ease;
-    }
-
-    .search-bar input:focus {
-        border-color: #4e73df;
-        box-shadow: 0 0 6px rgba(78, 115, 223, 0.3);
-        outline: none;
-    }
-
-    /* 📱 Responsive */
-    @media (max-width: 992px) {
-        .table-responsive {
-            overflow-x: auto;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .btn-view {
-            display: block;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .search-bar {
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .search-bar input {
-            width: 100%;
-        }
+    .text-muted {
+        font-size: 0.85rem;
     }
 </style>
 
-<div class="container">
-    <div class="orders-container">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-            <h2>📦 Orders List</h2>
-            <div class="search-bar">
-                <input type="text" placeholder="🔍 Search orders..." id="orderSearch" onkeyup="filterOrders()">
-            </div>
-        </div>
+<div class="table-container">
+    <h2>🛒 Customer Orders</h2>
 
+    @if($orders->isEmpty())
+        <div class="alert alert-warning text-center">No orders found.</div>
+    @else
         <div class="table-responsive">
-            <table class="table align-middle">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Order Number</th>
-                        <th>Customer</th>
-                        <th>Email</th>
-                        <th>Total Amount (₹)</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th width="120">Action</th>
+                        <th>#</th>
+                        <th>Customer Info</th>
+                        <th>Shipping Address</th>
+                        <th>Items Ordered</th>
+                        <th>Total (₹)</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
-                <tbody id="ordersTable">
-                    @forelse($orders as $order)
-                        <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->order_number }}</td>
-                            <td>{{ $order->customer_name }}</td>
-                            <td>{{ $order->customer_email }}</td>
-                            <td>{{ number_format($order->total_amount, 2) }}</td>
-                            <td>
-                                @if($order->status == 'Pending')
-                                    <span class="badge bg-warning">Pending</span>
-                                @elseif($order->status == 'Completed')
-                                    <span class="badge bg-success">Completed</span>
-                                @elseif($order->status == 'Cancelled')
-                                    <span class="badge bg-danger">Cancelled</span>
-                                @else
-                                    <span class="badge bg-secondary">{{ $order->status }}</span>
-                                @endif
-                            </td>
-                            <td>{{ $order->created_at->format('d M Y h:i A') }}</td>
-                            <td>
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-view">
-                                    View
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center text-muted py-4">No orders found.</td>
-                        </tr>
-                    @endforelse
+                <tbody>
+                    @foreach($orders as $index => $order)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+
+                        <td>
+                            <strong>{{ $order->recipient_name }}</strong><br>
+                            <span class="text-muted"><i class="bi bi-telephone"></i> {{ $order->phone_number }}</span><br>
+                            <span class="text-muted"><i class="bi bi-envelope"></i> {{ $order->email_address }}</span>
+                        </td>
+
+                        <td>
+                            {{ $order->address_line1 }}<br>
+                            {{ $order->address_line2 ? $order->address_line2 . ',' : '' }} 
+                            {{ $order->city }}, {{ $order->state }} - {{ $order->postal_code }}<br>
+                            <span class="badge">{{ $order->country }}</span>
+                        </td>
+
+                        <td>
+                            @php $items = json_decode($order->cart_items, true); @endphp
+                            <ul class="order-items">
+                                @foreach($items as $item)
+                                    <li>
+                                        <strong>{{ $item['name'] }}</strong><br>
+                                        ₹{{ number_format($item['price'],2) }} × {{ $item['quantity'] }}
+                                        <span class="text-muted float-end">₹{{ number_format($item['total'],2) }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </td>
+
+                        <td><strong>₹{{ number_format($order->total, 2) }}</strong></td>
+                        <td>{{ $order->created_at->format('d M Y, h:i A') }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
+    @endif
 </div>
-
-<script>
-    // 🔍 Simple client-side search filter
-    function filterOrders() {
-        const input = document.getElementById("orderSearch");
-        const filter = input.value.toLowerCase();
-        const rows = document.querySelectorAll("#ordersTable tr");
-
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(filter) ? "" : "none";
-        });
-    }
-</script>
 @endsection
