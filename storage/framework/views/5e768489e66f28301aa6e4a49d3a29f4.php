@@ -51,6 +51,12 @@ function addToCart(productId, name, price, quantity = 1){
     saveCart();
     renderCart();
 }
+// Add to cart buttons
+document.querySelectorAll('.addToCartBtn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        addToCart(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price));
+    });
+});
 
 // Render cart modal and count
 function renderCart(){

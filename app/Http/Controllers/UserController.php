@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class UserController extends Controller
 {
@@ -27,11 +28,14 @@ class UserController extends Controller
     }
 
     // Show single category details
-    public function categoryDetail($id)
-    {
-        $category = Category::findOrFail($id);
-        return view('user.category-detail', compact('category'));
-    }
+   public function categoryDetail($id)
+{
+    $category = Category::findOrFail($id);
+    $products = Product::where('category_id', $id)->latest()->get();
+
+    return view('user.category-detail', compact('category', 'products'));
+}
+
     // ✅ Products page
   public function products()
 {
