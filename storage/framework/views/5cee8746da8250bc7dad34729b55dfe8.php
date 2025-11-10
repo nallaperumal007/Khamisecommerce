@@ -2,8 +2,9 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="container py-5">
-    <div class="row align-items-center">
-        <!-- Left Side: Content -->
+
+    
+    <div class="row align-items-center mb-5">
         <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
             <h2 class="fw-bold mb-3"><?php echo e($category->name); ?></h2>
             <p style="font-size:1.1rem; line-height:1.6;">
@@ -13,7 +14,6 @@
             <a href="<?php echo e(route('user.category')); ?>" class="btn btn-success mt-3">Back to Categories</a>
         </div>
 
-        <!-- Right Side: Image -->
         <div class="col-lg-6 col-md-6 text-center">
             <?php if($category->image): ?>
                 <img src="<?php echo e(asset('storage/' . $category->image)); ?>" 
@@ -28,6 +28,35 @@
             <?php endif; ?>
         </div>
     </div>
+
+    
+    <h3 class="fw-bold mb-4 text-center">Products in <?php echo e($category->name); ?></h3>
+
+    <?php if($products->count() > 0): ?>
+        <div class="row">
+            <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="<?php echo e(asset('storage/' . $product->image)); ?>" 
+                             alt="<?php echo e($product->name); ?>" 
+                             class="card-img-top" 
+                             style="height: 220px; object-fit: cover;">
+
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold"><?php echo e($product->name); ?></h5>
+                            <p class="text-muted mb-1">₹<?php echo e(number_format($product->price, 2)); ?></p>
+                            <a href="<?php echo e(route('user.product.detail', $product->id)); ?>" class="btn btn-outline-success btn-sm mt-2">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+    <?php else: ?>
+        <p class="text-center text-muted">No products available in this category.</p>
+    <?php endif; ?>
+
 </div>
 <?php $__env->stopSection(); ?>
 
