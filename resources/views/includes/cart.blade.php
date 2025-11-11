@@ -21,8 +21,7 @@
       </div>
       <div class="modal-footer">
         <strong>Total: ₹<span id="cartTotal">0</span></strong>
-     <button class="btn btn-success" id="checkoutBtn">Checkout</button>
-
+        <button class="btn btn-success" id="checkoutBtn">Checkout</button>
       </div>
     </div>
   </div>
@@ -51,12 +50,6 @@ function addToCart(productId, name, price, quantity = 1){
     saveCart();
     renderCart();
 }
-// Add to cart buttons
-document.querySelectorAll('.addToCartBtn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        addToCart(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price));
-    });
-});
 
 // Render cart modal and count
 function renderCart(){
@@ -89,7 +82,7 @@ function renderCart(){
         </div>
     `).join('');
 
-    // Event listeners dynamically
+    // Dynamic event listeners
     document.querySelectorAll('.increaseItem').forEach((btn,i)=>{
         btn.addEventListener('click',()=>{ 
             window.cart[i].quantity++; 
@@ -123,16 +116,16 @@ document.getElementById('cartIcon').addEventListener('click',()=>{
     cartModal.show();
 });
 
-// Add to cart buttons
-document.querySelectorAll('.addToCartBtn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        addToCart(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price));
-    });
-});
+// ✅ Checkout click — only one handler
 document.getElementById('checkoutBtn').addEventListener('click', () => {
-  window.location.href = '/checkout';
+    @if(auth()->check())
+        window.location.href = "{{ route('checkout') }}";
+    @else
+        alert('Please login to continue checkout.');
+        window.location.href = "{{ route('account.login') }}";
+    @endif
 });
 
-// Render cart initially on page load
+// Render cart initially
 renderCart();
 </script>

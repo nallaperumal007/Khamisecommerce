@@ -103,6 +103,11 @@
   <li><a class="nav-link" href="<?php echo e(route('products')); ?>">PRODUCTS</a></li>
   <li><a class="nav-link" href="<?php echo e(route('gallery')); ?>">GALLERY</a></li>
   <li><a class="nav-link" href="<?php echo e(route('contact')); ?>">CONTACT-US</a></li>
+  
+  <li><a class="btn btn-sm btn-login" href="<?php echo e(route('account.login')); ?>">Login</a></li>
+  <li><a class="btn btn-sm btn-signup" href="<?php echo e(route('account.register')); ?>">Sign Up</a></li>
+
+  <li><a class="btn btn-sm btn-logout" href="<?php echo e(route('account.logout')); ?>">Logout</a></li>
 </ul>
       </div>
     </div>

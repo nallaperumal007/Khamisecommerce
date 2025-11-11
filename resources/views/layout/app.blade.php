@@ -103,6 +103,11 @@
   <li><a class="nav-link" href="{{ route('products') }}">PRODUCTS</a></li>
   <li><a class="nav-link" href="{{ route('gallery') }}">GALLERY</a></li>
   <li><a class="nav-link" href="{{ route('contact') }}">CONTACT-US</a></li>
+  
+  <li><a class="btn btn-sm btn-login" href="{{ route('account.login') }}">Login</a></li>
+  <li><a class="btn btn-sm btn-signup" href="{{ route('account.register') }}">Sign Up</a></li>
+
+  <li><a class="btn btn-sm btn-logout" href="{{route('account.logout')}}">Logout</a></li>
 </ul>
       </div>
     </div>
